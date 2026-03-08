@@ -1710,6 +1710,18 @@ pfUI:RegisterModule("gui", "vanilla:tbc", function ()
       CreateConfig(nil, T["Shift-Click Action"], C.unitframes, "clickcast5_shift", nil, nil, nil, nil, "STRING")
       CreateConfig(nil, T["Alt-Click Action"], C.unitframes, "clickcast5_alt", nil, nil, nil, nil, "STRING")
       CreateConfig(nil, T["Ctrl-Click Action"], C.unitframes, "clickcast5_ctrl", nil, nil, nil, nil, "STRING")
+
+      CreateConfig(nil, T["Mouse Wheel Up"], nil, nil, "header", nil, nil, nil, nil, "vanilla")
+      CreateConfig(nil, T["Click Action"], C.unitframes, "clickcast6", nil, nil, nil, nil, "STRING", "vanilla")
+      CreateConfig(nil, T["Shift-Click Action"], C.unitframes, "clickcast6_shift", nil, nil, nil, nil, "STRING", "vanilla")
+      CreateConfig(nil, T["Alt-Click Action"], C.unitframes, "clickcast6_alt", nil, nil, nil, nil, "STRING", "vanilla")
+      CreateConfig(nil, T["Ctrl-Click Action"], C.unitframes, "clickcast6_ctrl", nil, nil, nil, nil, "STRING", "vanilla")
+
+      CreateConfig(nil, T["Mouse Wheel Down"], nil, nil, "header", nil, nil, nil, nil, "vanilla")
+      CreateConfig(nil, T["Click Action"], C.unitframes, "clickcast7", nil, nil, nil, nil, "STRING", "vanilla")
+      CreateConfig(nil, T["Shift-Click Action"], C.unitframes, "clickcast7_shift", nil, nil, nil, nil, "STRING", "vanilla")
+      CreateConfig(nil, T["Alt-Click Action"], C.unitframes, "clickcast7_alt", nil, nil, nil, nil, "STRING", "vanilla")
+      CreateConfig(nil, T["Ctrl-Click Action"], C.unitframes, "clickcast7_ctrl", nil, nil, nil, nil, "STRING", "vanilla")
     end)
 
     for id, data in ipairs(unitframeSettings) do

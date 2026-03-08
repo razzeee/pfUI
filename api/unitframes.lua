@@ -2024,6 +2024,8 @@ local buttons = {
   [3] = "MiddleButton",
   [4] = "Button4",
   [5] = "Button5",
+  [6] = "MouseWheelUp",
+  [7] = "MouseWheelDown",
 }
 
 local modifiers = {
@@ -2035,6 +2037,18 @@ local modifiers = {
 
 function pfUI.uf:EnableClickCast()
   if self.config.clickcast ~= "1" then return end
+
+  if pfUI.client <= 11200 then
+    self:EnableMouseWheel(1)
+    self:SetScript("OnMouseWheel", function()
+      if arg1 > 0 then
+        pfUI.uf:ClickAction("MouseWheelUp")
+      elseif arg1 < 0 then
+        pfUI.uf:ClickAction("MouseWheelDown")
+      end
+    end)
+  end
+
   for bid, button in pairs(buttons) do
     for modifier, mconf in pairs(modifiers) do
       local bconf = bid == 1 and "" or bid
@@ -2077,15 +2091,18 @@ function pfUI.uf:ClickAction(button)
   local id = this.id or ""
   local unitstr = label .. id
   local showmenu = button == "RightButton" and true or nil
-  if SpellIsTargeting() and button == "RightButton" then
-    SpellStopTargeting()
-    return
-  end
 
-  if SpellIsTargeting() and button == "LeftButton" then
-    SpellTargetUnit(unitstr)
-  elseif CursorHasItem() then
-    DropItemOnUnit(unitstr)
+  if button ~= "MouseWheelUp" and button ~= "MouseWheelDown" then
+    if SpellIsTargeting() and button == "RightButton" then
+      SpellStopTargeting()
+      return
+    end
+
+    if SpellIsTargeting() and button == "LeftButton" then
+      SpellTargetUnit(unitstr)
+    elseif CursorHasItem() then
+      DropItemOnUnit(unitstr)
+    end
   end
 
   -- run click casting if enabled
@@ -2127,6 +2144,11 @@ function pfUI.uf:ClickAction(button)
   -- dropdown menus
   if showmenu then
     pfUI.uf:RightClickAction(label)
+    return
+  end
+
+  -- Mouse wheel should not have a default action
+  if button == "MouseWheelUp" or button == "MouseWheelDown" then
     return
   end
 

@@ -257,6 +257,16 @@ function pfUI:LoadConfig()
   pfUI:UpdateConfig("unitframes", nil,           "clickcast5_alt",    "")
   pfUI:UpdateConfig("unitframes", nil,           "clickcast5_ctrl",   "")
 
+  pfUI:UpdateConfig("unitframes", nil,           "clickcast6",        "")
+  pfUI:UpdateConfig("unitframes", nil,           "clickcast6_shift",  "")
+  pfUI:UpdateConfig("unitframes", nil,           "clickcast6_alt",    "")
+  pfUI:UpdateConfig("unitframes", nil,           "clickcast6_ctrl",   "")
+
+  pfUI:UpdateConfig("unitframes", nil,           "clickcast7",        "")
+  pfUI:UpdateConfig("unitframes", nil,           "clickcast7_shift",  "")
+  pfUI:UpdateConfig("unitframes", nil,           "clickcast7_alt",    "")
+  pfUI:UpdateConfig("unitframes", nil,           "clickcast7_ctrl",   "")
+
   pfUI:UpdateConfig("unitframes", "player",      "showPVPMinimap",   "0")
   pfUI:UpdateConfig("unitframes", "player",      "showRest",         "0")
   pfUI:UpdateConfig("unitframes", "player",      "energy",           "1")
