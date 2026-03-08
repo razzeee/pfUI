@@ -2024,8 +2024,8 @@ local buttons = {
   [3] = "MiddleButton",
   [4] = "Button4",
   [5] = "Button5",
-  [6] = "MouseWheelUp",
-  [7] = "MouseWheelDown",
+  [6] = "MOUSEWHEELUP",
+  [7] = "MOUSEWHEELDOWN",
 }
 
 local modifiers = {
@@ -2036,18 +2036,18 @@ local modifiers = {
 }
 
 function pfUI.uf:EnableClickCast()
-  if self.config.clickcast ~= "1" then return end
-
-  if pfUI.client <= 11200 then
-    self:EnableMouseWheel(1)
-    self:SetScript("OnMouseWheel", function()
+  if pfUI.expansion == "vanilla" then
+    self:EnableMouseWheel(self.config.clickcast == "1" and 1 or nil)
+    self:SetScript("OnMouseWheel", self.config.clickcast == "1" and function()
       if arg1 > 0 then
-        pfUI.uf:ClickAction("MouseWheelUp")
+        pfUI.uf:ClickAction("MOUSEWHEELUP")
       elseif arg1 < 0 then
-        pfUI.uf:ClickAction("MouseWheelDown")
+        pfUI.uf:ClickAction("MOUSEWHEELDOWN")
       end
-    end)
+    end or nil)
   end
+
+  if self.config.clickcast ~= "1" then return end
 
   for bid, button in pairs(buttons) do
     for modifier, mconf in pairs(modifiers) do
@@ -2092,7 +2092,7 @@ function pfUI.uf:ClickAction(button)
   local unitstr = label .. id
   local showmenu = button == "RightButton" and true or nil
 
-  if button ~= "MouseWheelUp" and button ~= "MouseWheelDown" then
+  if button ~= "MOUSEWHEELUP" and button ~= "MOUSEWHEELDOWN" then
     if SpellIsTargeting() and button == "RightButton" then
       SpellStopTargeting()
       return
@@ -2117,7 +2117,8 @@ function pfUI.uf:ClickAction(button)
       showmenu = true
     elseif string.find(this.clickactions[modstring], "^target") then
       -- target unit
-      showmenu = nil
+      TargetUnit(unitstr)
+      return
     else
       -- run click cast action
       local is_macro = string.find(this.clickactions[modstring], "^%/(.+)")
@@ -2148,7 +2149,7 @@ function pfUI.uf:ClickAction(button)
   end
 
   -- Mouse wheel should not have a default action
-  if button == "MouseWheelUp" or button == "MouseWheelDown" then
+  if button == "MOUSEWHEELUP" or button == "MOUSEWHEELDOWN" then
     return
   end
 
