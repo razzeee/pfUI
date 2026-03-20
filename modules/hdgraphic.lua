@@ -1,9 +1,14 @@
 pfUI:RegisterModule("hdgraphic", "vanilla", function ()
   -- inject video settings to provide advanced slider values
-  _G.OptionsFrameSliders[3].maxValue = 15
+  if _G.OptionsFrameSliders and _G.OptionsFrameSliders[3] then
+    _G.OptionsFrameSliders[3].maxValue = 15
+  end
+
   local HookSetWorldDetail = SetWorldDetail
   function _G.SetWorldDetail(arg)
-    HookSetWorldDetail((arg > 2 and 2 or arg))
+    if HookSetWorldDetail then
+      HookSetWorldDetail((arg > 2 and 2 or arg))
+    end
 
     if arg > 2 then
       ConsoleExec("frillDensity " .. (arg+1)*16)
@@ -35,6 +40,6 @@ pfUI:RegisterModule("hdgraphic", "vanilla", function ()
   local HookGetWorldDetail = GetWorldDetail
   function _G.GetWorldDetail(arg)
     local frill = tonumber(GetCVar("frillDensity"))
-    return frill > 48 and frill/16-1 or HookGetWorldDetail()
+    return frill > 48 and frill/16-1 or HookGetWorldDetail and HookGetWorldDetail()
   end
 end)
